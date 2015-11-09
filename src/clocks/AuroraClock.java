@@ -6,7 +6,7 @@
 * Released under the MIT license
 */
 
-package clockfaces;
+package clocks;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -14,23 +14,15 @@ import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
-import backgrounds.Uniform;
-import framework.Background;
 import framework.Clock;
-import framework.Filter;
-import framework.RGBColor;
 
 
 public class AuroraClock extends Clock {
 	
 	private Font font;
 	
-	private Background bg;
-	
-	public AuroraClock(Background bg){
+	public AuroraClock(){
 		super();
-		
-		this.bg = bg;
 		
 		try {
 			this.font = Font.createFont(Font.TRUETYPE_FONT, new File("resources/Pixel Millennium.ttf"));
@@ -44,7 +36,7 @@ public class AuroraClock extends Clock {
 		}
 	}
 	
-	public void drawHours(int hours, Graphics2D g2d){
+	private void drawHours(int hours, Graphics2D g2d){
 		g2d.setFont(font);
 		String s = String.valueOf(hours);
 		
@@ -119,32 +111,10 @@ public class AuroraClock extends Clock {
 		return img;
 	}
 	
-	public void update(double time){
-		super.update(time);
-		this.bg.update(time);
-	}
-	
 	public void render(Graphics2D g2d){
-		float percentage = (((float)((this.hours+8)%24)) / 24 + ((float)this.minutes) / (60*24));
-		Color c = RGBColor.fromHSV(percentage, 0.97f, 0.75f).getColor();
-		
-		this.bg.setBaseColor(c);
-		
-		//uniform layer
-		Background uniform = new Uniform();
-		uniform.setBaseColor(Color.BLACK);
-		
-		BufferedImage black = uniform.getImage();
-		BufferedImage background = this.bg.getImage();
 		BufferedImage clock = this.drawClock();
 		
-		if(this.nightmode){
-			g2d.drawImage(black, 0, 0,null);
-			g2d.drawImage(Filter.multiply(background, clock), 0, 0,null);
-		}else{
-			g2d.drawImage(background, 0, 0,null);
-			g2d.drawImage(Filter.multiply(black, clock), 0, 0,null);
-		}
+		g2d.drawImage(clock, 0, 0,null);
 	}
 
 }

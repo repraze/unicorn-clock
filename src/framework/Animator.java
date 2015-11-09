@@ -9,6 +9,7 @@
 package framework;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -77,6 +78,9 @@ public class Animator {
 		    //next tick
 		    if(delta >= ns){
 		    	this.animation.update(delta);
+		    	//fill bg in black
+		    	this.g2d.setPaint(Color.BLACK);
+		    	this.g2d.fillRect(0, 0, 8, 8);
 				this.animation.render(this.g2d);
 		    	
 				if(this.testmode){

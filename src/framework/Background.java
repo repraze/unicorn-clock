@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
 
 import java.awt.Color;
 
-public abstract class Background implements Filterable {
+public abstract class Background implements Filterable, Animation {
 	protected BufferedImage image;
 	protected Graphics2D g2d;
 	private boolean imageChanged = true;
@@ -32,6 +32,10 @@ public abstract class Background implements Filterable {
 		imageChanged = true;
 	}
 	public abstract void render();
+	
+	public void render(Graphics2D g2d){
+		g2d.drawImage(this.getImage(), 0, 0,null);
+	}
 	
 	public BufferedImage getImage(){
 		if(this.imageChanged){

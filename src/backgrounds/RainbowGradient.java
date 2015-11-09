@@ -9,6 +9,7 @@
 package backgrounds;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 
 import framework.Background;
 import framework.RGBColor;

@@ -7,6 +7,7 @@
 */
 
 package framework;
+import java.awt.Color;
 import java.util.Calendar;
 
 
@@ -14,7 +15,8 @@ public abstract class Clock implements Animation {
 	
 	protected int hours, minutes, seconds, millis;
 	private boolean testmode = false;
-	protected boolean nightmode = false;
+	
+	private Background bg;
 	
 	public Clock(){
 		this.hours	 = 0;
@@ -27,11 +29,20 @@ public abstract class Clock implements Animation {
 		this.testmode = testmode;
 	}
 	
-	public void setNightMode(boolean nightmode){
-		this.nightmode = nightmode;
+	public void SetColorizer(Background bg){
+		this.bg = bg;
 	}
 
 	public void update(double time) {
+		//for colors
+		if(this.bg != null){
+			float percentage = (((float)((this.hours+8)%24)) / 24 + ((float)this.minutes) / (60*24));
+			Color c = RGBColor.fromHSV(percentage, 0.97f, 0.75f).getColor();
+			this.bg.setBaseColor(c);
+			
+			this.bg.update(time);
+		}
+		
 		Calendar calendar = Calendar.getInstance();
 		if(testmode){
 			this.seconds = calendar.get(Calendar.SECOND);
