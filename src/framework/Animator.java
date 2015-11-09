@@ -64,7 +64,7 @@ public class Animator {
 			frame.getContentPane().setLayout(new BorderLayout());
 			lab = new JLabel(new ImageIcon(img));
 			frame.getContentPane().add(lab, BorderLayout.CENTER);
-			frame.setMinimumSize(new Dimension(200,200));
+			frame.setMinimumSize(new Dimension(360,360));
 			frame.pack();
 			frame.setLocationRelativeTo(null);
 			frame.setVisible(true);	
@@ -84,7 +84,7 @@ public class Animator {
 				this.animation.render(this.g2d);
 		    	
 				if(this.testmode){
-					lab.setIcon(new ImageIcon(this.img.getScaledInstance(128, 128, Image.SCALE_REPLICATE)));
+					lab.setIcon(new ImageIcon(this.img.getScaledInstance(256, 256, Image.SCALE_REPLICATE)));
 				}else{
 					//update screen
 					if(this.img!=null){
